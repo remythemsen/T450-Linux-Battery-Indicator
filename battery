@@ -10,9 +10,16 @@
 # NOTE: that the script assumes there to be two batteries, this is specifically 
 # 			for the Thinkpad >T440 series. 
 
-bat0=$(cat /sys/class/power_supply/BAT0/uevent | grep -oP '_SUPPLY_CAPACITY=\K\w+')
-bat1=$(cat /sys/class/power_supply/BAT1/uevent | grep -oP '_SUPPLY_CAPACITY=\K\w+')
-charge=$((($bat0 + $bat1)/2))
+# Get current maximum charge.
+bat_0_max=$(cat /sys/class/power_supply/BAT0/energy_full)
+bat_1_max=$(cat /sys/class/power_supply/BAT1/energy_full)
+
+total_max=$(($bat_0_max+$bat_1_max))
+
+# Calculate percentage left as current charge vs. maximum. 
+bat0=$(cat /sys/class/power_supply/BAT0/energy_now)
+bat1=$(cat /sys/class/power_supply/BAT1/energy_now)
+charge=$((($bat0 + $bat1)*100/$total_max))
 
 #Is it charging ?
 is_0_charging=$(cat /sys/class/power_supply/BAT0/uevent | grep -oP '_SUPPLY_STATUS=\K\w+')
