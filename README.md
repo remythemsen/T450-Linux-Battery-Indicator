@@ -1,7 +1,7 @@
 # T450-Linux-Battery-Indicator
 
 The purpose of this script is to echo out a formatted string using icons from 
-FontAwesome (https://fortawesome.github.io/) it was created for outputting into 
+FontAwesome (https://fortawesome.github.io/Font-Awesome/) it was created for outputting into 
 Conky (https://github.com/brndnmtthws/conky), and more specifically through conky 
 Directly into i3bar (Part of the i3 window manager.
 
